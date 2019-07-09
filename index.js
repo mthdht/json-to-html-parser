@@ -1,5 +1,6 @@
 class JsonConverter {
     constructor() {
+        this.selfClosingTags = ["area", "base", "br", "col", "command", "embed", "hr", "img", "input", "keygen", "link", "meta", "param", "source", "track", "wbr"],
         this.json = {
             tag: "div",
             attributes: {
@@ -33,29 +34,22 @@ class JsonConverter {
         }
     }
     convertToElement(element) {
-        let stringStart, stringEnd
-
         if (Object.keys(element).indexOf('tag') == -1) {
             return element.innerHtml
         }
 
-        if (Object.keys(element).indexOf('attributes') !== -1) {
-            stringStart = "<" + element.tag + this.attributesParser(element.attributes) + ">"
-        } else {
-            stringStart = "<" + element.tag + ">"
-        }
-         
-        stringEnd = "</" + element.tag + ">"
-
         if (Object.keys(element).indexOf('innerHtml') !== -1) {
-            return stringStart + element.innerHtml + stringEnd
+            return this.getStart(element) + element.innerHtml + this.getEnd(element)
         }
+
         if (Object.keys(element).indexOf('children') !== -1) {
+            let string = ""
             element.children.forEach(subElement => {
-                stringStart += this.convertToElement(subElement)
+                string += this.convertToElement(subElement)
             });
+            return this.getStart(element) + string + this.getEnd(element)
         }
-        return stringStart + stringEnd
+        return this.getStart(element) + this.selfClosingTags.indexOf(element.tag) == -1 ? this.getEnd(element) : '' 
     }
     attributesParser(attributes) {
         let attributesString = ""
@@ -63,6 +57,17 @@ class JsonConverter {
             attributesString += " " + attribute + "=\"" + attributes[attribute] + "\""
         }
         return attributesString
+    }
+    getStart(element) {
+        let start
+        if (Object.keys(element).indexOf('attributes') !== -1) {
+             return start = "<" + element.tag + this.attributesParser(element.attributes) + ">"
+        } else {
+             return start = "<" + element.tag + ">"
+        }
+    }
+    getEnd(element) {
+        return "</" + element.tag + ">"
     }
 
 }
