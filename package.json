@@ -7,5 +7,10 @@
     "build": "rollup index.js --file dist/bundle.js --format umd --name \"myBundle\""
   },
   "author": "mthdht",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "json to html parser",
+    "transform json representation of html in to html",
+    "html parser"
+  ]
 }
