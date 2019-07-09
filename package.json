@@ -2,10 +2,15 @@
   "name": "@mthdht/json-to-html-parser",
   "version": "1.0.0",
   "description": "Transform JSON representation of elements to real html",
-  "main": "index.js",
+  "main": "dist/bundle.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup index.js --file dist/bundle.js --format umd --name \"myBundle\""
   },
   "author": "mthdht",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "json to html parser",
+    "transform json representation of html in to html",
+    "html parser"
+  ]
 }
