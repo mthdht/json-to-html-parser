@@ -35,3 +35,35 @@ describe('attributesParser', () => {
     expect(returnValue).toBe(' class="classe1 classe2" title="Some title"');
   });
 });
+
+describe('getStart', () => {
+  test('should return starting html element without attributes', () => {
+    // GIVEN
+    const enterValue = {
+      tag: 'p'
+    };
+
+    // WHEN
+    const returnValue = JsonConverter.getStart(enterValue);
+
+    // THEN
+    expect(returnValue).toBe('<p>');
+  });
+
+  test('should return starting html element with attributes', () => {
+    // GIVEN
+    const enterValue = {
+      tag: 'p',
+      attributes: {
+        class: 'classe1 classe2',
+        title: 'Some title'
+      }
+    };
+
+    // WHEN
+    const returnValue = JsonConverter.getStart(enterValue);
+
+    // THEN
+    expect(returnValue).toBe('<p class="classe1 classe2" title="Some title">');
+  });
+});
