@@ -67,3 +67,18 @@ describe('getStart', () => {
     expect(returnValue).toBe('<p class="classe1 classe2" title="Some title">');
   });
 });
+
+describe('getEnd', () => {
+  test('should return end html element', () => {
+    // GIVEN
+    const enterValue = {
+      tag: 'p'
+    };
+
+    // WHEN
+    const returnValue = JsonConverter.getEnd(enterValue);
+
+    // THEN
+    expect(returnValue).toBe('</p>');
+  });
+});
